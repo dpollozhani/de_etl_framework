@@ -1,0 +1,6 @@
+emp_id:
+  data_type: int
+  nullable: True
+emp_name:
+  data_type: string
+  nullable: False

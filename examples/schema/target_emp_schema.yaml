@@ -1,0 +1,11 @@
+emp_id:
+  data_type: int
+  nullable: True
+emp_name:
+  data_type: string
+  nullable: False
+emp_end_dt:
+  data_type: timestamp
+  nullable: False
+  transformation: date_format
+  default: "9999-12-31 23:59:59"
