@@ -9,14 +9,13 @@ from src.transform.dataframe_transformer import src_to_target_map
 
 spark = SparkSession.builder.appName("Read CSV with auto schema").getOrCreate()
 
-csv_file_path = r"data\emp.csv"
-parquet_file_path = r"data\out\emp"
+csv_file_path = r'data/LoanStats_securev1_2018Q4.csv'  # change the file path with 'data/LoanStats_sample.csv' for sample file testing
+parquet_folder_path = r"data\out\LoanStats_parquet"
 
-src_schema_file = r"schema\emp_schema.yaml"
-csv_reader = CSVReader(path=csv_file_path, schema_file=src_schema_file, header=True)
+csv_reader = CSVReader(path=csv_file_path, sep=",", header=True, extra_options={"comment":'N'})
 df = csv_reader.read()
 
-target_schema_file = r"schema\target_emp_schema.yaml"
+target_schema_file = r"schema/target_schema.yaml"
 target_schema_map = read_yaml(target_schema_file)
 
 transform_df:DataFrame = src_to_target_map(df, target_schema_map)
@@ -25,6 +24,5 @@ transform_df.printSchema()
 transform_df.show()
 
 # write to parquet
-parquet_writer = ParquetWriter(spark, df=transform_df, path=parquet_file_path, mode="overwrite")
+parquet_writer = ParquetWriter(spark, df=transform_df, path=parquet_folder_path, mode="overwrite")
 parquet_writer.write()
-# transform_df.write.parquet(parquet_file_path, mode="overwrite")

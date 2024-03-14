@@ -1,0 +1,473 @@
+acc_now_delinq:
+  data_type: Integer
+  nullable: 'TRUE'
+acc_open_past_24mths:
+  data_type: Integer
+  nullable: 'TRUE'
+addr_state:
+  data_type: String
+  nullable: 'TRUE'
+all_util:
+  data_type: Double
+  nullable: 'TRUE'
+annual_inc:
+  data_type: Double
+  nullable: 'TRUE'
+annual_inc_joint:
+  data_type: Double
+  nullable: 'TRUE'
+application_type:
+  data_type: String
+  nullable: 'TRUE'
+avg_cur_bal:
+  data_type: Integer
+  nullable: 'TRUE'
+bc_open_to_buy:
+  data_type: Integer
+  nullable: 'TRUE'
+bc_util:
+  data_type: Double
+  nullable: 'TRUE'
+chargeoff_within_12_mths:
+  data_type: Integer
+  nullable: 'TRUE'
+collection_recovery_fee:
+  data_type: Double
+  nullable: 'TRUE'
+collections_12_mths_ex_med:
+  data_type: Integer
+  nullable: 'TRUE'
+debt_settlement_flag:
+  data_type: String
+  nullable: 'TRUE'
+debt_settlement_flag_date:
+  data_type: Date
+  nullable: 'TRUE'
+  transformation: 'date_format'
+  source_date_formats: ["%b-%y", "%d-%b"]
+deferral_term:
+  data_type: Integer
+  nullable: 'TRUE'
+delinq_2yrs:
+  data_type: Integer
+  nullable: 'TRUE'
+delinq_amnt:
+  data_type: Integer
+  nullable: 'TRUE'
+desc:
+  data_type: String
+  nullable: 'TRUE'
+dti:
+  data_type: Double
+  nullable: 'TRUE'
+dti_joint:
+  data_type: Double
+  nullable: 'TRUE'
+earliest_cr_line:
+  data_type: Date
+  nullable: 'FALSE'
+  transformation: 'date_format'
+  source_date_formats: [ "%b-%y", "%d-%b" ]
+emp_length:
+  data_type: String
+  nullable: 'TRUE'
+emp_title:
+  data_type: String
+  nullable: 'TRUE'
+fico_range_high:
+  data_type: String
+  nullable: 'TRUE'
+fico_range_low:
+  data_type: String
+  nullable: 'TRUE'
+funded_amnt:
+  data_type: Integer
+  nullable: 'FALSE'
+funded_amnt_inv:
+  data_type: Integer
+  nullable: 'FALSE'
+grade:
+  data_type: String
+  nullable: 'FALSE'
+hardship_amount:
+  data_type: Double
+  nullable: 'TRUE'
+hardship_dpd:
+  data_type: Integer
+  nullable: 'TRUE'
+hardship_end_date:
+  data_type: Date
+  nullable: 'TRUE'
+  transformation: 'date_format'
+  source_date_formats: [ "%b-%y", "%d-%b" ]
+hardship_flag:
+  data_type: String
+  nullable: 'TRUE'
+hardship_last_payment_amount:
+  data_type: Double
+  nullable: 'TRUE'
+hardship_length:
+  data_type: String
+  nullable: 'TRUE'
+hardship_loan_status:
+  data_type: String
+  nullable: 'TRUE'
+hardship_payoff_balance_amount:
+  data_type: Double
+  nullable: 'TRUE'
+hardship_reason:
+  data_type: String
+  nullable: 'TRUE'
+hardship_start_date:
+  data_type: Date
+  nullable: 'TRUE'
+  transformation: 'date_format'
+  source_date_formats: [ "%b-%y", "%d-%b" ]
+hardship_status:
+  data_type: String
+  nullable: 'TRUE'
+hardship_type:
+  data_type: String
+  nullable: 'TRUE'
+home_ownership:
+  data_type: String
+  nullable: 'TRUE'
+id:
+  data_type: Integer
+  nullable: 'TRUE'
+il_util:
+  data_type: Double
+  nullable: 'TRUE'
+initial_list_status:
+  data_type: String
+  nullable: 'TRUE'
+inq_fi:
+  data_type: Integer
+  nullable: 'TRUE'
+inq_last_12m:
+  data_type: Integer
+  nullable: 'TRUE'
+inq_last_6mths:
+  data_type: Integer
+  nullable: 'TRUE'
+installment:
+  data_type: Double
+  nullable: 'FALSE'
+int_rate:
+  data_type: String
+  nullable: 'FALSE'
+issue_d:
+  data_type: Date
+  nullable: 'FALSE'
+  transformation: 'date_format'
+  source_date_formats: [ "%b-%y", "%d-%b" ]
+last_credit_pull_d:
+  data_type: Date
+  nullable: 'TRUE'
+  transformation: 'date_format'
+  source_date_formats: [ "%b-%y", "%d-%b" ]
+last_fico_range_high:
+  data_type: String
+  nullable: 'TRUE'
+last_fico_range_low:
+  data_type: String
+  nullable: 'TRUE'
+last_pymnt_amnt:
+  data_type: Double
+  nullable: 'TRUE'
+last_pymnt_d:
+  data_type: Date
+  nullable: 'TRUE'
+  transformation: 'date_format'
+  source_date_formats: [ "%b-%y", "%d-%b" ]
+loan_amnt:
+  data_type: Integer
+  nullable: 'FALSE'
+loan_status:
+  data_type: String
+  nullable: 'FALSE'
+max_bal_bc:
+  data_type: Integer
+  nullable: 'TRUE'
+member_id:
+  data_type: Integer
+  nullable: 'TRUE'
+mo_sin_old_il_acct:
+  data_type: Integer
+  nullable: 'TRUE'
+mo_sin_old_rev_tl_op:
+  data_type: Integer
+  nullable: 'TRUE'
+mo_sin_rcnt_rev_tl_op:
+  data_type: Integer
+  nullable: 'TRUE'
+mo_sin_rcnt_tl:
+  data_type: Integer
+  nullable: 'TRUE'
+mort_acc:
+  data_type: Integer
+  nullable: 'TRUE'
+mths_since_last_delinq:
+  data_type: Integer
+  nullable: 'TRUE'
+mths_since_last_major_derog:
+  data_type: Integer
+  nullable: 'TRUE'
+mths_since_last_record:
+  data_type: Integer
+  nullable: 'TRUE'
+mths_since_rcnt_il:
+  data_type: Integer
+  nullable: 'TRUE'
+mths_since_recent_bc:
+  data_type: Integer
+  nullable: 'TRUE'
+mths_since_recent_bc_dlq:
+  data_type: Integer
+  nullable: 'TRUE'
+mths_since_recent_inq:
+  data_type: Integer
+  nullable: 'TRUE'
+mths_since_recent_revol_delinq:
+  data_type: Integer
+  nullable: 'TRUE'
+next_pymnt_d:
+  data_type: Date
+  nullable: 'TRUE'
+  transformation: 'date_format'
+  source_date_formats: [ "%b-%y", "%d-%b" ]
+num_accts_ever_120_pd:
+  data_type: Integer
+  nullable: 'TRUE'
+num_actv_bc_tl:
+  data_type: Integer
+  nullable: 'TRUE'
+num_actv_rev_tl:
+  data_type: Integer
+  nullable: 'TRUE'
+num_bc_sats:
+  data_type: Integer
+  nullable: 'TRUE'
+num_bc_tl:
+  data_type: Integer
+  nullable: 'TRUE'
+num_il_tl:
+  data_type: Integer
+  nullable: 'TRUE'
+num_op_rev_tl:
+  data_type: Integer
+  nullable: 'TRUE'
+num_rev_accts:
+  data_type: Integer
+  nullable: 'TRUE'
+num_rev_tl_bal_gt_0:
+  data_type: Integer
+  nullable: 'TRUE'
+num_sats:
+  data_type: Integer
+  nullable: 'TRUE'
+num_tl_120dpd_2m:
+  data_type: Integer
+  nullable: 'TRUE'
+num_tl_30dpd:
+  data_type: Integer
+  nullable: 'TRUE'
+num_tl_90g_dpd_24m:
+  data_type: Integer
+  nullable: 'TRUE'
+num_tl_op_past_12m:
+  data_type: Integer
+  nullable: 'TRUE'
+open_acc:
+  data_type: Integer
+  nullable: 'TRUE'
+open_acc_6m:
+  data_type: Integer
+  nullable: 'TRUE'
+open_act_il:
+  data_type: String
+  nullable: 'TRUE'
+open_il_12m:
+  data_type: Integer
+  nullable: 'TRUE'
+open_il_24m:
+  data_type: Integer
+  nullable: 'TRUE'
+open_il_6m:
+  data_type: Integer
+  nullable: 'TRUE'
+open_rv_12m:
+  data_type: Integer
+  nullable: 'TRUE'
+open_rv_24m:
+  data_type: Integer
+  nullable: 'TRUE'
+orig_projected_additional_accrued_interest:
+  data_type: Double
+  nullable: 'TRUE'
+out_prncp:
+  data_type: Double
+  nullable: 'TRUE'
+out_prncp_inv:
+  data_type: Double
+  nullable: 'TRUE'
+payment_plan_start_date:
+  data_type: Date
+  nullable: 'TRUE'
+  transformation: 'date_format'
+  source_date_formats: [ "%b-%y", "%d-%b" ]
+pct_tl_nvr_dlq:
+  data_type: Double
+  nullable: 'TRUE'
+percent_bc_gt_75:
+  data_type: Double
+  nullable: 'TRUE'
+policy_code:
+  data_type: Integer
+  nullable: 'TRUE'
+pub_rec:
+  data_type: Integer
+  nullable: 'TRUE'
+pub_rec_bankruptcies:
+  data_type: Integer
+  nullable: 'TRUE'
+purpose:
+  data_type: String
+  nullable: 'TRUE'
+pymnt_plan:
+  data_type: String
+  nullable: 'FALSE'
+recoveries:
+  data_type: Double
+  nullable: 'TRUE'
+revol_bal:
+  data_type: Integer
+  nullable: 'TRUE'
+revol_bal_joint:
+  data_type: Double
+  nullable: 'TRUE'
+revol_util:
+  data_type: String
+  nullable: 'TRUE'
+sec_app_chargeoff_within_12_mths:
+  data_type: String
+  nullable: 'TRUE'
+sec_app_collections_12_mths_ex_med:
+  data_type: String
+  nullable: 'TRUE'
+sec_app_earliest_cr_line:
+  data_type: String
+  nullable: 'TRUE'
+sec_app_fico_range_high:
+  data_type: String
+  nullable: 'TRUE'
+sec_app_fico_range_low:
+  data_type: String
+  nullable: 'TRUE'
+sec_app_inq_last_6mths:
+  data_type: String
+  nullable: 'TRUE'
+sec_app_mort_acc:
+  data_type: String
+  nullable: 'TRUE'
+sec_app_mths_since_last_major_derog:
+  data_type: String
+  nullable: 'TRUE'
+sec_app_num_rev_accts:
+  data_type: String
+  nullable: 'TRUE'
+sec_app_open_acc:
+  data_type: String
+  nullable: 'TRUE'
+sec_app_open_act_il:
+  data_type: String
+  nullable: 'TRUE'
+sec_app_revol_util:
+  data_type: String
+  nullable: 'TRUE'
+settlement_amount:
+  data_type: Double
+  nullable: 'TRUE'
+settlement_date:
+  data_type: Date
+  nullable: 'TRUE'
+  transformation: 'date_format'
+  source_date_formats: [ "%b-%y", "%d-%b" ]
+settlement_percentage:
+  data_type: Double
+  nullable: 'TRUE'
+settlement_status:
+  data_type: String
+  nullable: 'TRUE'
+settlement_term:
+  data_type: Integer
+  nullable: 'TRUE'
+sub_grade:
+  data_type: String
+  nullable: 'FALSE'
+tax_liens:
+  data_type: Integer
+  nullable: 'TRUE'
+term:
+  data_type: String
+  nullable: 'FALSE'
+title:
+  data_type: String
+  nullable: 'TRUE'
+tot_coll_amt:
+  data_type: Integer
+  nullable: 'TRUE'
+tot_cur_bal:
+  data_type: Integer
+  nullable: 'TRUE'
+tot_hi_cred_lim:
+  data_type: Integer
+  nullable: 'TRUE'
+total_acc:
+  data_type: Integer
+  nullable: 'TRUE'
+total_bal_ex_mort:
+  data_type: Integer
+  nullable: 'TRUE'
+total_bal_il:
+  data_type: Integer
+  nullable: 'TRUE'
+total_bc_limit:
+  data_type: Integer
+  nullable: 'TRUE'
+total_cu_tl:
+  data_type: Integer
+  nullable: 'TRUE'
+total_il_high_credit_limit:
+  data_type: Integer
+  nullable: 'TRUE'
+total_pymnt:
+  data_type: Double
+  nullable: 'TRUE'
+total_pymnt_inv:
+  data_type: Double
+  nullable: 'TRUE'
+total_rec_int:
+  data_type: Double
+  nullable: 'TRUE'
+total_rec_late_fee:
+  data_type: Double
+  nullable: 'TRUE'
+total_rec_prncp:
+  data_type: Double
+  nullable: 'TRUE'
+total_rev_hi_lim:
+  data_type: Integer
+  nullable: 'TRUE'
+url:
+  data_type: String
+  nullable: 'TRUE'
+verification_status:
+  data_type: String
+  nullable: 'FALSE'
+verification_status_joint:
+  data_type: String
+  nullable: 'TRUE'
+zip_code:
+  data_type: String
+  nullable: 'TRUE'

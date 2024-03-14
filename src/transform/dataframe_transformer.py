@@ -1,5 +1,11 @@
 from pyspark.sql import DataFrame
-from pyspark.sql.functions import col, lit, date_format
+from pyspark.sql.functions import col, lit, udf, date_format
+from pyspark.sql.types import DateType
+import datetime
+
+from src.transform.schema_caster import cast_column_types
+
+DEFAULT_DATE_FORMATS = ["%Y-%m-%d", "%b-%y", "%d-%b", "%m/%d/%Y","%d-%b-%y"]
 
 
 def add_columns_with_defaults(df, column_map):
@@ -24,9 +30,27 @@ def add_columns_with_defaults(df, column_map):
     return df
 
 
+# Define a UDF to parse different date formats
+def parse_date(date_str, expected_formats):
+    if date_str is None:
+        return None
+    default_formats = expected_formats + [ d for d in DEFAULT_DATE_FORMATS if d not in expected_formats]
+    for format_str in default_formats:
+        try:
+            # Try parsing with the current format
+            return datetime.datetime.strptime(date_str, format_str).date()
+        except ValueError:
+            pass  # Continue to the next format if parsing fails
+    # If parsing fails for all formats, return null
+    return None
+
 def apply_date_format_transformation(df, target_columns):
     """
         Apply date format transformations to specified columns in a DataFrame.
+        - Select all date (data_type as date ) columns which has transformation as date_format
+        - Parse the date based on user provided formats if any then default formats
+        - send the date
+
 
         Parameters:
         - df (DataFrame): The input DataFrame.
@@ -38,12 +62,13 @@ def apply_date_format_transformation(df, target_columns):
         - DataFrame: The DataFrame with applied date format transformations.
 
         Example:
-        df = apply_date_format_transformation(df, {"date_column": {"transformation": "date_format", "date_format": "yyyy-MM-dd"}})
+        df = apply_date_format_transformation(df, {"column_name": {"data_type": "date", "transformation": "date_format", "source_date_formats": ["yyyy-MM-dd"]}})
     """
     for col_name, transformation_info in target_columns.items():
-        if "transformation" in transformation_info and transformation_info["transformation"] == "date_format":
-            date_format_pattern = transformation_info.get("date_format", "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
-            df = df.withColumn(col_name, date_format(col(col_name), date_format_pattern))
+        if transformation_info["data_type"].lower() == "date" and transformation_info.get("transformation", "") == "date_format":
+            expected_date_formats = transformation_info.get("source_date_formats", [])
+            parse_date_udf = udf(lambda date_str: parse_date(date_str, expected_date_formats), DateType())
+            df = df.withColumn(col_name, parse_date_udf(col(col_name)))
     return df
 
 
@@ -97,6 +122,6 @@ def src_to_target_map(df: DataFrame, target_map: dict):
 
     # apply date transformations
     new_df = apply_date_format_transformation(new_df, target_map)
-
+    new_df = cast_column_types(new_df, target_map)
     return new_df
 
