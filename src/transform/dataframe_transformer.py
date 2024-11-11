@@ -7,8 +7,7 @@ from src.transform.schema_caster import cast_column_types
 
 DEFAULT_DATE_FORMATS = ["%Y-%m-%d", "%b-%y", "%d-%b", "%m/%d/%Y","%d-%b-%y"]
 
-
-def add_columns_with_defaults(df, column_map):
+def add_columns_with_defaults(df: DataFrame, column_map: dict[str, dict[str, str]]) -> DataFrame:
     """
         Add columns with default values to a DataFrame based on the provided column_map.
 
@@ -24,14 +23,16 @@ def add_columns_with_defaults(df, column_map):
         Example:
         df = add_columns_with_defaults(df, {"col1": {"data_type": "string", "default": "default_value"}})
     """
-    for col_name, col_details in column_map.items():
-        df = df.withColumn(col_name,
-                           lit(col_details.get("default", None)).cast(col_details["data_type"]).alias(col_name))
-    return df
+    modified_columns = {
+        col_name: lit(col_details.get("default", None)).cast(col_details["data_type"]).alias(col_name)
+        for col_name, col_details in column_map.items()
+    }
+
+    return df.withColumns(modified_columns)
 
 
 # Define a UDF to parse different date formats
-def parse_date(date_str, expected_formats):
+def parse_date(date_str: str, expected_formats: list) -> datetime.date | None:
     if date_str is None:
         return None
     default_formats = expected_formats + [ d for d in DEFAULT_DATE_FORMATS if d not in expected_formats]
@@ -44,7 +45,7 @@ def parse_date(date_str, expected_formats):
     # If parsing fails for all formats, return null
     return None
 
-def apply_date_format_transformation(df, target_columns):
+def apply_date_format_transformation(df: DataFrame, target_columns: dict[str, dict[str, str]]) -> DataFrame:
     """
         Apply date format transformations to specified columns in a DataFrame.
         - Select all date (data_type as date ) columns which has transformation as date_format
@@ -64,15 +65,17 @@ def apply_date_format_transformation(df, target_columns):
         Example:
         df = apply_date_format_transformation(df, {"column_name": {"data_type": "date", "transformation": "date_format", "source_date_formats": ["yyyy-MM-dd"]}})
     """
+    modified_columns = {}
     for col_name, transformation_info in target_columns.items():
         if transformation_info["data_type"].lower() == "date" and transformation_info.get("transformation", "") == "date_format":
             expected_date_formats = transformation_info.get("source_date_formats", [])
             parse_date_udf = udf(lambda date_str: parse_date(date_str, expected_date_formats), DateType())
-            df = df.withColumn(col_name, parse_date_udf(col(col_name)))
-    return df
+            modified_columns[col_name] = parse_date_udf(col(col_name))
+
+    return df.withColumns(modified_columns)
 
 
-def compare_tgt_to_src_columns(src, tgt):
+def compare_tgt_to_src_columns(src: list, tgt: list) -> tuple[list]:
     """
        Compare source and target column lists and identify available and missing columns.
 
@@ -88,13 +91,12 @@ def compare_tgt_to_src_columns(src, tgt):
        print(available_cols) # ['col2']
        print(missing_cols)  # ['col3']
    """
-    print(src, tgt)
     available_columns = list(set(src) & set(tgt))
-    missing_columns = set(tgt) - set(src)
+    missing_columns = list(set(tgt) - set(src))
     return available_columns, missing_columns
 
 
-def src_to_target_map(df: DataFrame, target_map: dict):
+def src_to_target_map(df: DataFrame, target_map: dict) -> DataFrame:
     """
         Transform a source DataFrame to match a target schema map by selecting available columns,
         adding default values for missing columns, and applying date format transformations.
@@ -112,16 +114,12 @@ def src_to_target_map(df: DataFrame, target_map: dict):
     src_columns = df.columns
     tgt_columns = list(target_map.keys())
     available_columns, missing_columns = compare_tgt_to_src_columns(src_columns, tgt_columns)
-
-    # select available columns from source dataframe
-    new_df = df.select(available_columns)
-
-    # add default value for missing columns
     missing_columns_map = {k: v for k, v in target_map.items() if k in missing_columns}
-    new_df = add_columns_with_defaults(new_df, missing_columns_map)
 
-    # apply date transformations
-    new_df = apply_date_format_transformation(new_df, target_map)
-    new_df = cast_column_types(new_df, target_map)
-    return new_df
+    return (
+        df.select(available_columns) # select available columns from source dataframe
+        .transform(add_columns_with_defaults, missing_columns_map) # add default value for missing columns
+        .transform(apply_date_format_transformation, target_map) # apply date transformations
+        .transform(cast_column_types, target_map)
+    )
 
