@@ -65,7 +65,7 @@ def test_compare_tgt_to_src_columns():
     available_cols, missing_cols = compare_tgt_to_src_columns(src_columns, tgt_columns)
 
     assert available_cols == ["col2"]
-    assert missing_cols == {"col3"}
+    assert missing_cols == ["col3"]
 
 
 def test_src_to_target_map(spark_session):
