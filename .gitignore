@@ -11,3 +11,4 @@ venv/
 # Ignore run-specific files
 dist/
 htmlcov/
+.coverage*
