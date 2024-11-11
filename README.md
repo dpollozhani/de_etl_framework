@@ -6,8 +6,8 @@ This PySpark project provides modular code for reading, writing, and transformin
 
 ### Prerequisites
 
-- Python (3.6 or higher)
-- PySpark (3.x recommended)
+- Python (3.9 or higher)
+- PySpark (3.5.x or higher recommended)
 
 ### Installation
 
